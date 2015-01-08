@@ -1,0 +1,21 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+INFOJS_OPT: view:info toc:t ltoc:nil
+#+OPTIONS: H:2 num:nil tags:nil toc:t timestamps:nil
+#+TITLE: Test Blog Article
+#+BEGIN_HTML
+(setf
+title     "Your page title"
+date      "<2013-04-02 Tue>"
+meta-keys "Blogging, emacs, common lisp"
+meta-desc "Setting up emacs for blogging"
+author    "Matthew Carter")
+#+END_HTML
+
+Actual article content here
+
+Code sample can go here:
+#+BEGIN_SRC lisp
+(defun test ()
+  (format t "testing"))
+#+END_SRC

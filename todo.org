@@ -1,0 +1,8 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+INFOJS_OPT: view:info toc:t ltoc:nil
+#+OPTIONS: H:2 num:nil tags:nil toc:nil timestamps:nil
+#+TITLE: Ahungry-Blog todo list
+
+* Better file generation
+  Create files through iterating ./articles/_posts and generate dynamic ./articles/index.html page.

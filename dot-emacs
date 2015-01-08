@@ -1,0 +1,47 @@
+;; Easily get a new blog entry going
+(setq +ahungry-blog-path+ "/srv/http/ahungry-blog/")
+
+(defun ahungry-new-blog (title)
+  (interactive "sArticle title (use dashes not spaces): ")
+  (let ((file-name (concat +ahungry-blog-path+
+			   "org/_posts/"
+			   (format-time-string "%Y-%m-%d")
+			   "-" title ".org")))
+    (when (not (file-exists-p file-name))
+      (copy-file (concat +ahungry-blog-path+ "org/sample.org")
+		 file-name))
+    (find-file file-name)))
+
+(defun ahungry-publish (commit)
+  (interactive "sArticle summary (for git commit): ")
+  (org-publish "weblog")
+  (cd +ahungry-blog-path+)
+  (shell-command "./generate-html.lisp")
+  (shell-command "git add .")
+  (shell-command (concat "git commit -a -m '" commit "'"))
+  (shell-command "git push ahu master"))
+
+;; org-mode publishing section
+(setq org-publish-project-alist
+      '(("org-weblog"
+	 ;; Path to your org files.
+	 :base-directory "/srv/http/ahungry-blog/org/"
+	 :base-extension "org"
+
+	 ;; Path to project
+	 :publishing-directory "/srv/http/ahungry-blog/articles/"
+	 :recursive t
+	 :publishing-function org-html-publish-to-html
+	 :headline-levels 4
+	 :html-extension "html"
+	 :body-only t)
+
+	("org-static-weblog"
+	 :base-directory "/srv/http/ahungry-blog/org/"
+	 :base-extension "png\\|jpg\\|gif\\|pdf\\|mp3\\|ogg\\|swf"
+	 :publishing-directory "/srv/http/ahungry-blog/attachments"
+	 :recursive t
+	 :publishing-function org-publish-attachment)
+
+	("weblog" :components ("org-weblog"
+			       "org-static-weblog"))))

@@ -1,0 +1,109 @@
+#+STARTUP: showall indent
+#+STARTUP: hidestars
+#+INFOJS_OPT: view:info toc:t ltoc:nil
+#+OPTIONS: H:2 num:nil tags:nil toc:nil timestamps:nil
+#+TITLE: Test Blog Article
+#+BEGIN_HTML
+(setf
+title     "Blogging with Emacs' org-mode"
+date      "<2013-04-01 Fri>"
+meta-keys "Blogging, emacs, common lisp"
+meta-desc "Setting up emacs for blogging"
+author    "Matthew Carter")
+---
+#+END_HTML
+
+* Blogging with Emacs' org-mode/org-publish
+Emacs is an amazing tool, and blogging in emacs' org-mode can be a very
+enjoyable experience.
+
+Using the software set up available at:
+https://github.com/ahungry/ahungry-blog
+
+You will be able to set up a blog entry through org-mode, publish it
+via org-publish, and finally expand the tags set at the start of the org-mode
+file via the generate-html.lisp script provided in the repository.
+
+** Getting started
+To get started, you will need to clone the repository with the following:
+#+BEGIN_SRC shell
+git clone https://github.com/ahungry/ahungry-blog.git
+#+END_SRC
+
+After you have cloned the repository, you will want to set up your first test
+entry, do that via the following commands in your shell:
+#+BEGIN_SRC shell
+cd ./ahungry-blog/org
+cp ./sample.org ./_posts
+#+END_SRC
+
+At this point, you will have the base template to start setting up your first
+blog entry.
+
+However, there is one more thing that must be done, add the required ~/.emacs information
+to set org-publish parameters.
+
+If you are not using the directory, "/srv/http/ahungry-blog" for this, you will need
+to manually edit the file.  If you are, simply type the following into your shell:
+#+BEGIN_SRC shell
+cd /srv/http/ahungry-blog
+cat ./dot-emacs >> ~/.emacs
+#+END_SRC
+
+And in emacs, run:
+#+BEGIN_SRC shell
+M-x load-file
+~/.emacs
+#+END_SRC
+
+to re-evaluate the new configuration information.
+** Generating the final html
+After you've had a chance to work on your sample file, you will want to save
+your .org file.
+
+It is now time to publish the file, in emacs simply run:
+#+BEGIN_SRC shell
+M-x org-publish
+weblog
+#+END_SRC
+
+This will generate the raw html file with the common lisp s-exp's in it still.
+
+The final step to produce usable static html files from this is to run:
+
+#+BEGIN_SRC shell
+./generate-html.lisp ./articles/_posts/*
+#+END_SRC
+
+You will now see your articles directory contains a fully expanded version of
+all the relevant posts.
+ 
+* Update <2013-04-20 Sat>
+Using the content in the dot-files included with the package will allow you to run the following commands:
+#+BEGIN_SRC bash
+M-x ahungry-new-blog
+#+END_SRC
+To start a new blog entry (follow the prompts).
+
+To easily publish your new entries and push to a remote git repository which will host your blog you can run:
+#+BEGIN_SRC bash
+M-x ahungry-publish
+#+END_SRC
+
+* Comments
+#+BEGIN_HTML
+    <div id="disqus_thread"></div>
+    <script type="text/javascript">
+        /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+        var disqus_shortname = 'ahungry'; // required: replace example with your forum shortname
+
+        /* * * DON'T EDIT BELOW THIS LINE * * */
+        (function() {
+            var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+    <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+#+END_HTML

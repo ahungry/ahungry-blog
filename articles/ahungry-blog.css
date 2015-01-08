@@ -1,0 +1,19 @@
+html {
+    background:#fff;
+    color:#666;
+    font-family:sans-serif;
+}
+a {
+    text-decoration:none;
+}
+a:hover {
+    text-decoration:underline;
+}
+.src {
+    background:#333;
+    border:1px solid #999;
+    border-radius:3px;
+    color:#bbb;
+    padding:10px;
+}
+
