@@ -19,7 +19,7 @@
   (shell-command "./generate-html.lisp")
   (shell-command "git add .")
   (shell-command (concat "git commit -a -m '" commit "'"))
-  (shell-command "git push ahu master"))
+  (shell-command "git push your-branch master"))
 
 ;; org-mode publishing section
 (setq org-publish-project-alist
