@@ -36,8 +36,8 @@
 (defparameter *index-file-html* "<a href='/'>to main site...</a><a href='https://github.com/ahungry/ahungry-blog'>git the source</a><ul>")
 
 (ƒ get-date-from-name ~"(\\d{4})-(\\d{2})-(\\d{2}).*"~ → |"\\1-\\2-\\3"|)
-(ƒ get-setf-options  ~"(?i)(?s).*(\\(setf.*?\\)).*"~ → |"\\1"|)
-(ƒ get-html  ~"(?i)(?s)(.*)\\(setf.*?\\)(.*)"~ → |"\\1\\2"|)
+(ƒ get-setf-options  ~"(?i)(?s).*?(\\(setf.*?\\)).*"~ → |"\\1"|)
+(ƒ get-html  ~"(?i)(?s)(.*?)\\(setf.*?\\)(.*)"~ → |"\\1\\2"|)
 
 (defun markup-file (file-name)
   "Parse options out of a file as well as HTML"
